@@ -58,6 +58,8 @@ User Prompt → EVAL output → AskUserQuestion → Skill() → Implementation
 
 See [Sample Session](docs/SAMPLE_SESSION.md) for detailed example.
 
+![screenshot](docs/screenshot.jpeg)
+
 ---
 
 ## 🔧 How It Works<
