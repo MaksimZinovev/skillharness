@@ -1,0 +1,95 @@
+{
+  "permissions": {
+    "allow": [     
+      "Bash(echo:*)",
+      "Bash(python3:*)",
+      "Bash(cd:*)",
+      "Bash(SKILL_HOOK_DEBUG=1*)"
+    ],
+    "additionalDirectories": [
+      "$HOME/repos/your-directory"
+    ]
+  },
+  "enableAllProjectMcpServers": true,
+  "enabledMcpjsonServers": [
+    "filesystem"
+  ],
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "export SKILL_HOOK_DEBUG=1 && python3 .claude/hooks/session-start-verify-skills.py"
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "export SKILL_HOOK_DEBUG=1 && python3 .claude/hooks/skill-forced-eval-hook.py"
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "^(?!AskUserQuestion|Skill).*$",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "export SKILL_HOOK_DEBUG=1 && python3 .claude/hooks/require-ask-question-first.py"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "AskQuestion",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "export SKILL_HOOK_DEBUG=1 && python3 .claude/hooks/after-ask-question.py"
+          }
+        ]
+      },
+      {
+        "matcher": "AskQuestion",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "export SKILL_HOOK_DEBUG=1 && python3 .claude/hooks/verify-evaluation.py"
+          }
+        ]
+      },
+      {
+        "matcher": "Skill",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "export SKILL_HOOK_DEBUG=1 && python3 .claude/hooks/track-skill-activation.py"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "matcher": "^(?!AskUserQuestion).*$",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "export SKILL_HOOK_DEBUG=1 && python3 .claude/hooks/verify-ask-question.py"
+          }
+        ]
+      }
+    ]
+  },
+  "enabledPlugins": {
+    "chrome-devtools-mcp@chrome-devtools-plugins": true
+  }
+}

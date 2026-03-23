@@ -1,0 +1,134 @@
+# Keyword filters for skill activation
+# Format: skill_name:keyword1,keyword2,keyword3
+# Lines starting with # are comments
+
+# ============================================================================
+# TESTING & DEBUGGING
+# ============================================================================
+
+playwright:playwright,browser,automation,screenshot,page,click,navigation,form,accessibility,e2e,end-to-end
+a11y-debugging:accessibility,a11y,aria,screen reader,focus,keyboard,contrast,semantic,tap target,wcag,heading hierarchy,color contrast
+chrome-devtools:devtools,inspect,console,network,performance,lighthouse,dom snapshot,browser debug,mcp browser
+systematic-debugging:debug,bug,error,fail,fix,broken,crash,exception,trace,investigate
+test-driven-development:tdd,test first,red green,refactor,test driven
+testing-anti-patterns:mock,stub,spy,test double,anti pattern
+testing-skills-with-subagents:red green,refactor skill,verify skill
+condition-based-waiting:wait,poll,timeout,race condition,timing,async,retry
+root-cause-tracing:root cause,trace backward,call stack,deep error,corruption
+
+# ============================================================================
+# CI/CD & DEVOPS
+# ============================================================================
+
+circleci-cli:circleci,pipeline,ci cd,workflow,build,test results,flaky,config validate
+circleci-troubleshooting-configuration:circleci config,yaml error,pipeline issue,config validate,circleci troubleshooting
+
+# ============================================================================
+# DEVELOPMENT TOOLS
+# ============================================================================
+
+github-cli:github,issue,gist,pull request,pr,repository,branch
+cli-tool-discovery:cli,tool,command,utility,discover,binary
+update-config:settings,config,hooks,permissions,env variables,settings.json,automate behavior
+simplify:simplify,refactor,code quality,reuse,efficiency,clean code
+using-git-worktrees:worktree,isolate,feature branch,parallel work
+verification-before-completion:verify,done,complete,pass,ready,commit,pr
+
+# ============================================================================
+# TMUX & UI
+# ============================================================================
+
+tmux-subagent:tmux,pane,parallel,subagent,observe,split,window
+tmux-cli:tmux-cli,tmux command,pane communication,cli agent,terminal communication
+cmux:cmux,topology,routing,workspace,surface,focus,reorder
+cmux-browser:cmux browser,open site,interact page,extract data,browser surface
+cmux-debug-windows:debug window,debug menu,sidebar debug,background debug
+cmux-markdown:markdown,viewer,render,documentation,plan display
+
+# ============================================================================
+# CODE SEARCH & ANALYSIS
+# ============================================================================
+
+ck:ck,code search,semantic search,grep,find code,pattern search
+codebase-visualizer:visualize,tree,structure,architecture,explore repo
+clean-cache:clean,cache,clear,refresh
+
+# ============================================================================
+# AI & SKILLS
+# ============================================================================
+
+skill-builder:create skill,new skill,build skill,skill development
+capturing-skill-requests:capture skill,skill request,REQUESTS.md,repeated workflow
+gardening-skills-wiki:gardening,wiki,link check,cross reference,coverage
+using-skills:find skills,check skills,session start,relevant skills
+using-mcporter:mcporter,mcp server,cli generation,mcp tool,typescript client
+
+# ============================================================================
+# PLANNING & EXECUTION
+# ============================================================================
+
+writing-plans:plan,implement,design,roadmap,tasks,bite sized
+executing-plans:execute plan,implement plan,carry out,batch execution
+subagent-driven-development:subagent driven,fresh subagent,code review gate
+finishing-a-development-branch:finish branch,merge,pr,cleanup,integrate
+
+# ============================================================================
+# CODE REVIEW
+# ============================================================================
+
+requesting-code-review:request review,code review,review implementation
+receiving-code-review:receive review,review feedback,act on feedback
+
+# ============================================================================
+# RESEARCH & DOCUMENTATION
+# ============================================================================
+
+research-docs-grounding:research,docs,documentation,how to,evidence,grounding
+remembering-conversations:remember,previous,discussed before,historical context
+claude-md-improver:claude.md,improve,audit,project memory,claude instructions
+
+# ============================================================================
+# CREATIVE THINKING
+# ============================================================================
+
+brainstorming:brainstorm,idea,lets make,what if,refine,design,socratic
+collision-zone-thinking:collision zone,unrelated,emergent,breakthrough,innovation
+inversion-exercise:inversion,flip assumption,alternative,constraint,hidden
+meta-pattern-recognition:meta pattern,domain pattern,universal principle,deja vu
+preserving-productive-tensions:productive tension,trade off,conflicting,stakeholder
+simplification-cascades:simplification,eliminate,reduce complexity,insight,cascade
+scale-game:scale game,extreme,1000x,scalability,edge case,production
+defense-in-depth:defense,validate layer,multiple layer,bug impossible
+tracing-knowledge-lineages:knowledge lineage,evolution,old solution,history,revival
+
+# ============================================================================
+# PROJECT MANAGEMENT
+# ============================================================================
+
+taskmaster:taskmaster,task master,tm,task management,prd,complexity
+
+# ============================================================================
+# SPECSTORY
+# ============================================================================
+
+specstory-guard:specstory guard,secret scanning,pre commit hook,protect history
+specstory-link-trail:link trail,url visit,fetched links,web fetch
+specstory-organize:organize history,clean up specstory,sort sessions
+specstory-project-stats:project stats,specstory stats,sessions count,metrics
+specstory-session-summary:session summary,standup,recent sessions,progress
+specstory-yak:yak shaving,rabbit hole,distracted,yak shave
+
+# ============================================================================
+# WORKFLOW & PROCESS
+# ============================================================================
+
+when-stuck:stuck,problem solving,technique,blocked
+dispatching-parallel-agents:parallel agent,independent failure,multiple failure,concurrent
+dictate-stt:dictate,speech to text,stt,voice input
+loop:loop,recurring,interval,poll,schedule,repeat,cron
+
+# ============================================================================
+# MISC
+# ============================================================================
+
+playwright-cli:playwright-cli,browser debugging,live browser,accessibility snapshot, playwright

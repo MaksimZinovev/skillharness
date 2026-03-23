@@ -1,0 +1,45 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Debug logs
+*.log
+
+# Temporary files
+*.tmp
+*.temp
+
+# User config (copy from .example files)
+# Claude 
+.claude/**
+!.claude/hooks/**
+!.claude/hooks/
+.claude/settings.local.json
+.claude/hooks/keyword-filters.conf
+!.claude/settings.local.json.example
+
+.auth/
+.idea
+node_modules
+dist
+build
+.env
+*.local.json
+.playwright-cli/**
+.local
+.specstory
