@@ -8,42 +8,48 @@ suggest 3 ideas for improving the README
 
 ## Hook Output (injected into system prompt)
 
-```
-SKILL CHECKPOINT: The following skills may be relevant: brainstorming
+## Sample Session
 
-Before proceeding:
-1. Evaluate each skill: EVAL: [skill-name] - YES/NO/MAYBE - <one-line reason>
-2. Use AskUserQuestion to let user select
-3. Call Skill() to activate
-4. Only then proceed with implementation
-
-Skills to evaluate:
-- brainstorming (keywords: idea, ideas, suggest, suggestion)
-```
-
-## Claude Response
+Here's what the workflow looks like from a user's perspective:
 
 ```
-EVAL: [brainstorming] - YES - User is asking for ideas, which matches brainstorming skill purpose
+┌─────────────────────────────────────────────────────────────────┐
+│ User: suggest 1 idea for improving home page tests              │
+└─────────────────────────────────────────────────────────────────┘
 
-[Uses AskUserQuestion tool with options:
-- brainstorming
-- No skill needed
-- Something else...]
+Claude evaluates skills and outputs:
 
-User selects: brainstorming
+  EVAL: brainstorming - YES - User is asking for improvement ideas
+  EVAL: playwright - MAYBE - Could help with test patterns
+  EVAL: testing-anti-patterns - MAYBE - Could inform improvements
+  EVAL: condition-based-waiting - NO - Too specific
+  EVAL: circleci-cli - NO - Not related to CI
 
-[Calls Skill() tool with "brainstorming"]
+┌─────────────────────────────────────────────────────────────────┐
+│ AskUserQuestion: Which skill should I use?                      │
+│                                                                 │
+│ Options:                                                        │
+│ • brainstorming (Recommended)                                   │
+│ • playwright skill                                              │
+│ • No skill needed                                               │
+└─────────────────────────────────────────────────────────────────┘
 
-Now I'll help you brainstorm ideas for improving the README...
-```
+┌─────────────────────────────────────────────────────────────────┐
+│ User selects: brainstorming (Recommended)                       │
+└─────────────────────────────────────────────────────────────────┘
 
-## State Transitions
+Claude activates skill:
 
-```
-Initial: {}
-After UserPromptSubmit: {skills_suggested: ["brainstorming"]}
-After EVAL output: {skills_suggested: ["brainstorming"], evaluation_done: true}
-After AskUserQuestion: {skills_suggested: ["brainstorming"], ask_question_answered: true}
-After Skill(): {skills_suggested: ["brainstorming"], activated: ["brainstorming"]}
+  Skill(brainstorming)
+
+┌─────────────────────────────────────────────────────────────────┐
+│ Skill activated: Brainstorming skill loaded                     │
+│                                                                 │
+│ Claude now follows the brainstorming workflow:                  │
+│ • Phase 1: Understanding - asks clarifying questions            │
+│ • Phase 2: Exploration - proposes approaches                    │
+│ • Phase 3: Design - presents solution incrementally             │
+└─────────────────────────────────────────────────────────────────┘
+
+Claude proceeds with task implementation...
 ```
