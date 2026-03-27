@@ -69,14 +69,14 @@ See [Sample Session](docs/SAMPLE_SESSION.md) for detailed example.
 
 ## Hook Events
 
-| Event | Hook | Action |
-|-------|------|--------|
-| `UserPromptSubmit` | `skill-forced-eval-hook.py` | Detect skills, inject checkpoints |
-| `PreToolUse` | `require-ask-question-first.py` | Block tools until workflow complete |
-| `PostToolUse` (Ask) | `verify-evaluation.py` | Verify EVAL pattern in transcript |
-| `PostToolUse` (Ask) | `after-ask-question.py` | Update state from user answer |
-| `PostToolUse` (Skill) | `track-skill-activation.py` | Record activated skill |
-| `Stop` | `verify-ask-question.py` | Block stop until workflow complete |
+| Event                 | Hook                            | Action                              |
+| --------------------- | ------------------------------- | ----------------------------------- |
+| `UserPromptSubmit`    | `skill-forced-eval-hook.py`     | Detect skills, inject checkpoints   |
+| `PreToolUse`          | `require-ask-question-first.py` | Block tools until workflow complete |
+| `PostToolUse` (Ask)   | `verify-evaluation.py`          | Verify EVAL pattern in transcript   |
+| `PostToolUse` (Ask)   | `after-ask-question.py`         | Update state from user answer       |
+| `PostToolUse` (Skill) | `track-skill-activation.py`     | Record activated skill              |
+| `Stop`                | `verify-ask-question.py`        | Block stop until workflow complete  |
 
 ## State File
 
@@ -109,12 +109,12 @@ See [Sample Session](docs/SAMPLE_SESSION.md) for detailed example.
 
 ## 📚 Documentation
 
-| File | Description |
-|------|-------------|
-| [Configuration](docs/CONFIGURATION.md) | Full hook config & keyword filters |
-| [Sample Session](docs/SAMPLE_SESSION.md) | Step-by-step example |
-| [settings.local.json.example](.claude/settings.local.json.example) | Hook configuration template |
-| [keyword-filters.conf.example](.claude/hooks/keyword-filters.conf.example) | Keyword filters template |
+| File                                                                       | Description                        |
+| -------------------------------------------------------------------------- | ---------------------------------- |
+| [Configuration](docs/CONFIGURATION.md)                                     | Full hook config & keyword filters |
+| [Sample Session](docs/SAMPLE_SESSION.md)                                   | Step-by-step example               |
+| [settings.local.json.example](.claude/settings.local.json.example)         | Hook configuration template        |
+| [keyword-filters.conf.example](.claude/hooks/keyword-filters.conf.example) | Keyword filters template           |
 
 ---
 
