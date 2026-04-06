@@ -70,6 +70,81 @@ See [Sample Session](docs/SAMPLE_SESSION.md) for detailed example.
 
 ---
 
+## 📊 State Diagram
+
+<details>
+<summary><b>View workflow state machine</b></summary>
+
+```mermaid
+stateDiagram-v2
+    [*] --> Idle: Session Start
+
+    Idle --> Evaluating: User Prompt Submitted
+
+    state Evaluating {
+        [*] --> DetectingKeywords
+        DetectingKeywords --> GeneratingEVALs
+        GeneratingEVALs --> [*]
+    }
+
+    Evaluating --> AwaitingUserChoice: EVALs Output
+
+    state AwaitingUserChoice {
+        [*] --> AskQuestionSent
+        AskQuestionSent --> WaitingForSelection
+        WaitingForSelection --> [*]: User Selects
+    }
+
+    AwaitingUserChoice --> SkillActivating: User Selects Skill
+    AwaitingUserChoice --> Implementing: User Selects "No Skill"
+
+    state SkillActivating {
+        [*] --> SkillToolCalled
+        SkillToolCalled --> SkillLoaded
+        SkillLoaded --> [*]
+    }
+
+    SkillActivating --> Implementing: Skill Active
+
+    Implementing --> Idle: Task Complete
+
+    note right of Idle
+        State: skills_suggested = false
+        ask_question_answered = false
+        no_skill_needed = false
+        activated = false
+    end note
+
+    note right of Evaluating
+        Hook: skill-forced-eval-hook.py
+        Injects checkpoint instructions
+        into system prompt
+    end note
+
+    note right of AwaitingUserChoice
+        Hook: require-ask-question-first.py
+        Blocks other tools until
+        AskUserQuestion used
+    end note
+
+    note right of SkillActivating
+        Hooks: verify-evaluation.py
+               after-ask-question.py
+               track-skill-activation.py
+        Updates state file
+    end note
+```
+
+| State | Description |
+|-------|-------------|
+| **Idle** | Waiting for user input |
+| **Evaluating** | Detecting skills, generating EVAL outputs |
+| **AwaitingUserChoice** | AskUserQuestion displayed, waiting for selection |
+| **SkillActivating** | Skill tool called, content loading |
+| **Implementing** | Task execution with active skill |
+
+</details>
+
 ## 🔧 How It Works<
 
 <details>
