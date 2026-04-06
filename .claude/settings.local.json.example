@@ -1,6 +1,6 @@
 {
   "permissions": {
-    "allow": [     
+    "allow": [
       "Bash(echo:*)",
       "Bash(python3:*)",
       "Bash(cd:*)",
@@ -21,7 +21,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "export SKILL_HOOK_DEBUG=1 && python3 .claude/hooks/session-start-verify-skills.py"
+            "command": "python3 .claude/hooks/session-start-verify-skills.py"
           }
         ]
       }
@@ -32,7 +32,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "export SKILL_HOOK_DEBUG=1 && python3 .claude/hooks/skill-forced-eval-hook.py"
+            "command": "python3 .claude/hooks/skill-forced-eval-hook.py"
           }
         ]
       }
@@ -43,7 +43,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "export SKILL_HOOK_DEBUG=1 && python3 .claude/hooks/require-ask-question-first.py"
+            "command": "python3 .claude/hooks/require-ask-question-first.py"
           }
         ]
       }
@@ -54,7 +54,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "export SKILL_HOOK_DEBUG=1 && python3 .claude/hooks/after-ask-question.py"
+            "command": "python3 .claude/hooks/after-ask-question.py"
           }
         ]
       },
@@ -63,7 +63,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "export SKILL_HOOK_DEBUG=1 && python3 .claude/hooks/verify-evaluation.py"
+            "command": "python3 .claude/hooks/verify-evaluation.py"
           }
         ]
       },
@@ -72,7 +72,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "export SKILL_HOOK_DEBUG=1 && python3 .claude/hooks/track-skill-activation.py"
+            "command": "python3 .claude/hooks/track-skill-activation.py"
           }
         ]
       }
@@ -83,7 +83,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "export SKILL_HOOK_DEBUG=1 && python3 .claude/hooks/verify-ask-question.py"
+            "command": "python3 .claude/hooks/verify-ask-question.py"
           }
         ]
       }

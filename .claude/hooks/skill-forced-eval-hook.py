@@ -199,6 +199,56 @@ def main():
     prompt_lower = prompt.lower()
     debug_log(f"Prompt: {prompt_lower[:50]}...")
 
+    # ============================================================================
+    # /noskill BYPASS - Skip all skill evaluation for this prompt
+    # ============================================================================
+    NOSKILL_PATTERN = re.compile(r'\b/noskill\b', re.IGNORECASE)
+
+    if NOSKILL_PATTERN.search(prompt):
+        debug_log("Bypass requested via /noskill")
+
+        # Read existing state to get prompt_count
+        STATE_FILE = Path("/tmp/skill-session-state.json")
+        existing_state = {}
+        if STATE_FILE.exists():
+            try:
+                existing_state = json.loads(STATE_FILE.read_text())
+            except:
+                pass
+
+        state = {
+            "skills_suggested": [],
+            "selected_skill": None,
+            "ask_question_answered": False,
+            "no_skill_needed": True,  # KEY: Set bypass flag
+            "activated": [],
+            "prompt_count": existing_state.get("prompt_count", 0) + 1
+        }
+
+        # Atomic write
+        TEMP_FILE = Path("/tmp/skill-session-state.tmp")
+        with open(TEMP_FILE, 'w') as f:
+            f.write(json.dumps(state, indent=2))
+            f.flush()
+            os.fsync(f.fileno())
+        TEMP_FILE.rename(STATE_FILE)
+
+        debug_log(f"Bypass state set: prompt_count={state['prompt_count']}")
+
+        # Output empty additionalContext (no skill guidance)
+        output = {
+            "hookSpecificOutput": {
+                "hookEventName": "UserPromptSubmit",
+                "additionalContext": ""
+            }
+        }
+        json.dump(output, sys.stdout)
+        return
+
+    # ============================================================================
+    # NORMAL FLOW - Discover and filter skills
+    # ============================================================================
+
     # Discover all skills
     debug_log("=== DISCOVERING ===")
     all_skills = discover_skills(cwd)

@@ -28,11 +28,14 @@ __pycache__/
 # Claude 
 .claude/**
 !.claude/hooks/**
+!.claude/commands/**
 !.claude/hooks/
 .claude/settings.local.json
 .claude/hooks/keyword-filters.conf
 !.claude/settings.local.json.example
+!.claude/commands/noskill.md
 
+!.claude/scripts/set-noskill-bypass.py
 .auth/
 .idea
 node_modules

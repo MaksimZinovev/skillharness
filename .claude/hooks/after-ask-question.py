@@ -2,6 +2,7 @@
 """
 PostToolUse hook that runs after AskQuestion tool.
 Reads user's answer and updates state accordingly.
+Outputs guidance for next step.
 
 INSTALLATION (in settings.local.json):
 {
@@ -52,7 +53,9 @@ def main():
     tool_response = input_data.get("tool_response", {})
 
     if not tool_response:
-        return  # No response, nothing to do
+        # No response, nothing to do - output empty result
+        json.dump({"hookSpecificOutput": {"hookEventName": "PostToolUse"}}, sys.stdout)
+        return
 
     state = load_state()
 
@@ -60,9 +63,11 @@ def main():
     # AskUserQuestion returns {"answers": {"question": "selected_option"}}
     answers = tool_response.get("answers", {})
     if not answers:
+        json.dump({"hookSpecificOutput": {"hookEventName": "PostToolUse"}}, sys.stdout)
         return
 
     # Get the first answer (skill selection question)
+    guidance = ""
     for question_key, answer in answers.items():
         answer_lower = str(answer).lower() if answer else ""
 
@@ -71,14 +76,16 @@ def main():
             state["no_skill_needed"] = True
             state["ask_question_answered"] = True
             save_state(state)
-            return
+            guidance = "✅ User selected: No skill needed\n\n→ You may proceed with the task directly. Skill evaluation workflow complete."
+            break
 
         # Check if user selected "something else"
         if "something else" in answer_lower:
             # User wants to provide custom input, don't set skill yet
             state["ask_question_answered"] = False
             save_state(state)
-            return
+            guidance = "User selected: Something else\n\n→ Wait for user to specify what they need."
+            break
 
         # User selected a skill - extract skill name from answer
         # Answer format: "skill-name (recommended)" or "skill-name"
@@ -87,6 +94,20 @@ def main():
             state["selected_skill"] = skill_name
             state["ask_question_answered"] = True
             save_state(state)
+            guidance = f"✅ User selected: {skill_name}\n\n→ NEXT STEP: Activate the skill by calling:\n   Skill({skill_name})\n\nThis will unblock your tools and load skill-specific guidance."
+
+    # Output guidance to agent
+    if guidance:
+        output = {
+            "hookSpecificOutput": {
+                "hookEventName": "PostToolUse",
+                "additionalContext": guidance
+            }
+        }
+    else:
+        output = {"hookSpecificOutput": {"hookEventName": "PostToolUse"}}
+
+    json.dump(output, sys.stdout)
 
 
 if __name__ == "__main__":

@@ -98,14 +98,16 @@ def check_evaluation_in_transcript(transcript_path: str, skills: list) -> bool:
         for skill in skills[:5]:  # Check first 5 skills
             escaped_skill = re.escape(skill)
 
-            # Pattern variants - must have EVAL: prefix, brackets, YES/NO/MAYBE, and dash
+            # Pattern variants - accept both with and without brackets
             patterns = [
-                # Standard: EVAL: [skill] - YES/NO/MAYBE - reason
+                # Standard with brackets: EVAL: [skill] - YES/NO/MAYBE - reason
                 rf'EVAL:\s*\[{escaped_skill}\]\s*-\s*(YES|NO|MAYBE)\s*-',
-                # Compact: EVAL:[skill]-YES/NO/MAYBE-reason
+                # Without brackets: EVAL: skill - YES/NO/MAYBE - reason
+                rf'EVAL:\s*{escaped_skill}\s*-\s*(YES|NO|MAYBE)\s*-',
+                # Compact with brackets: EVAL:[skill]-YES/NO/MAYBE-reason
                 rf'EVAL:\s*\[{escaped_skill}\]-(YES|NO|MAYBE)-',
-                # Case insensitive prefix: eval: [skill] - yes/no/maybe -
-                rf'eval:\s*\[{escaped_skill}\]\s*-\s*(YES|NO|MAYBE)\s*-',
+                # Compact without brackets: EVAL:skill-YES/NO/MAYBE-reason
+                rf'EVAL:\s*{escaped_skill}-(YES|NO|MAYBE)-',
             ]
 
             for pattern in patterns:
@@ -145,6 +147,21 @@ def main():
     # Load state
     state = load_state()
     skills_suggested = state.get("skills_suggested", [])
+    ask_question_answered = state.get("ask_question_answered", False)
+    selected_skill = state.get("selected_skill", None)
+
+    # If user already answered (selected a skill), DON'T block - let agent proceed to activate
+    if ask_question_answered and selected_skill:
+        debug_log(f"User already selected skill '{selected_skill}' - approve, guide to activate")
+        # Output guidance to activate the skill
+        output = {
+            "hookSpecificOutput": {
+                "hookEventName": "PostToolUse",
+                "additionalContext": f"✅ User selected: {selected_skill}\n\n→ NEXT STEP: Activate the skill by calling: Skill({selected_skill})\n\nThis will unblock your tools."
+            }
+        }
+        json.dump(output, sys.stdout)
+        return
 
     if not skills_suggested:
         debug_log("No skills suggested - approve")

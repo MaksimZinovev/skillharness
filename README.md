@@ -54,6 +54,14 @@ User Prompt → EVAL output → AskUserQuestion → Skill() → Implementation
 3. **ACTIVATE** — Call `Skill()` tool
 4. **IMPLEMENT** — Proceed with task
 
+## ⚡ Bypass
+
+Use `/noskill <prompt>` to skip skill evaluation for simple queries:
+
+```
+/noskill what time is it?
+```
+
 ## Sample Session
 
 See [Sample Session](docs/SAMPLE_SESSION.md) for detailed example.
