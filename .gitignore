@@ -34,8 +34,9 @@ __pycache__/
 .claude/hooks/keyword-filters.conf
 !.claude/settings.local.json.example
 !.claude/commands/noskill.md
-
 !.claude/scripts/set-noskill-bypass.py
+!.claude/scripts/
+
 .auth/
 .idea
 node_modules
